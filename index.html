@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Open in Browser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 48px 20px 32px;
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(36px, 9vw, 48px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.05;
+            margin-bottom: 16px;
+        }
+
+        .sub {
+            font-size: 16px;
+            color: #9CA3AF;
+            line-height: 1.45;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .chevron {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chevron svg {
+            width: 36px;
+            height: 36px;
+            color: #22D3EE;
+            filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.6));
+        }
+
+        .cta {
+            display: block;
+            width: 100%;
+            background: #EF4444;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 18px 24px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            box-shadow:
+                0 0 40px rgba(239, 68, 68, 0.55),
+                0 8px 24px rgba(239, 68, 68, 0.3);
+            margin-bottom: 28px;
+            transition: transform 0.1s ease;
+        }
+
+        .cta:active {
+            transform: scale(0.97);
+        }
+
+        .manual {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            padding: 20px 18px;
+            text-align: left;
+            margin-bottom: 16px;
+        }
+
+        .manual h2 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .manual ol {
+            padding-left: 18px;
+            color: #D1D5DB;
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        .manual ol li {
+            margin-bottom: 6px;
+        }
+
+        .manual strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .manual-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .manual-btn {
+            flex: 1;
+            background: #1A1A1A;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 14px 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .manual-btn:active {
+            background: #252525;
+        }
+
+        .url-box {
+            background: #0A0A0A;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 14px 12px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            color: #9CA3AF;
+            line-height: 1.5;
+            word-break: break-all;
+            text-align: left;
+            max-height: 140px;
+            overflow: hidden;
+        }
+
+        .copied {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #22C55E;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            z-index: 100;
+        }
+
+        .copied.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>Open in browser</h1>
+        <p class="sub">For the best experience, this page needs to open in your browser.</p>
+
+        <div class="chevron">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+                <path d="M6 15l6 6 6-6"/>
+            </svg>
+        </div>
+
+        <button class="cta" id="ctaBtn">Open in browser</button>
+
+        <div class="manual">
+            <h2>Didn't open? Open it manually:</h2>
+            <ol>
+                <li>Tap the ··· or share icon in the top corner.</li>
+                <li>Choose <strong>Open in browser</strong>.</li>
+            </ol>
+            <div class="manual-actions">
+                <button class="manual-btn" id="copyBtn">Copy link</button>
+                <button class="manual-btn" id="manualBtn">Open the page<br>manually</button>
+            </div>
+        </div>
+
+        <div class="url-box" id="urlBox"></div>
+    </div>
+
+    <div class="copied" id="copiedToast">Link copied</div>
+
+    <script>
+        // Base lander URL (same-folder default). Change this if your lander has a different filename.
+        var BASE_LANDER = 'reco-simple-lander.html';
+
+        function isInAppBrowser() {
+            var ua = navigator.userAgent || '';
+            return /TikTok|Bytedance|musical_ly|Instagram|FBAN|FBAV|Messenger|Facebook/i.test(ua);
+        }
+
+        function isStandardBrowser() {
+            var ua = navigator.userAgent || '';
+            return (/Safari/i.test(ua) && !/CriOS|Chrome|TikTok|Instagram|Facebook/i.test(ua)) ||
+                   /Chrome|CriOS/i.test(ua);
+        }
+
+        function buildDestUrl() {
+            var dest = BASE_LANDER;
+            var currentParams = new URLSearchParams(window.location.search);
+            var campid = currentParams.get('campid');
+
+            if (campid) {
+                try {
+                    var urlObj = new URL(dest, window.location.href);
+                    urlObj.searchParams.set('campid', campid);
+                    dest = urlObj.href;
+                } catch (e) {
+                    var sep = dest.indexOf('?') === -1 ? '?' : '&';
+                    dest += sep + 'campid=' + encodeURIComponent(campid);
+                }
+            }
+            return dest;
+        }
+
+        function getAbsoluteDest() {
+            var dest = buildDestUrl();
+            try {
+                return new URL(dest, window.location.href).href;
+            } catch (e) {
+                return dest;
+            }
+        }
+
+        function openInBrowser(dest) {
+            var absoluteDest = dest;
+            try {
+                absoluteDest = new URL(dest, window.location.href).href;
+            } catch (e) {}
+
+            var url;
+            if (/Android/i.test(navigator.userAgent)) {
+                url = 'intent://' + absoluteDest.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end;';
+            } else {
+                url = absoluteDest.replace(/^https:\/\//, 'x-safari-https://').replace(/^http:\/\//, 'x-safari-http://');
+            }
+
+            try {
+                var target = window.top || window;
+                target.location.href = url;
+            } catch (err) {
+                window.open(absoluteDest, '_blank');
+            }
+        }
+
+        function showCopied() {
+            var toast = document.getElementById('copiedToast');
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 1800);
+        }
+
+        // Auto-skip if already in a standard browser
+        if (!isInAppBrowser() && isStandardBrowser()) {
+            window.location.replace(buildDestUrl());
+        }
+
+        // Populate URL box with the destination (for manual copy reference)
+        var absoluteDest = getAbsoluteDest();
+        document.getElementById('urlBox').textContent = absoluteDest;
+
+        // Main CTA
+        document.getElementById('ctaBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            openInBrowser(buildDestUrl());
+        });
+
+        // Copy link
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            var text = getAbsoluteDest();
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(showCopied).catch(function() {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        });
+
+        function fallbackCopy(text) {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showCopied();
+            } catch (e) {}
+            document.body.removeChild(ta);
+        }
+
+        // Open manually (just tries normal navigation / new tab)
+        document.getElementById('manualBtn').addEventListener('click', function() {
+            var dest = getAbsoluteDest();
+            window.open(dest, '_blank') || (window.location.href = dest);
+        });
+    </script>
+</body>
+</html>
